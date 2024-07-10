@@ -6,6 +6,7 @@ FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = '!DISCONNECT'
 SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER,PORT)
+CAN_SEND_MESSAGE = True
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
@@ -19,7 +20,10 @@ def send(msg):
     client.send(message)
     print(client.recv(2048).decode(FORMAT))
 
-send("Hello World!")
-send('Pemba SHerpa')
-send(DISCONNECT_MESSAGE)
-                                         
+while CAN_SEND_MESSAGE:
+    msg = input('Enter the message: ')
+    if msg == 'END':
+        CAN_SEND_MESSAGE = False
+    else:
+        send(msg)
+# send(DISCONNECT_MESSAGE)               
